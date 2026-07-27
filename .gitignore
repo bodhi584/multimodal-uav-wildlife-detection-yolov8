@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Training outputs and model artifacts
+runs/
+weights/
+*.pt
+*.onnx
+*.engine
+
+# Source data and media are not distributed with this portfolio
+data/
+datasets/
+raw_media/
+*.mp4
+*.mov
+*.avi
+
+# Local/system artifacts
+.DS_Store
+.env
+*.zip
