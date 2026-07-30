@@ -2,7 +2,13 @@
 
 An end-to-end computer-vision pipeline that turns synchronized UAV thermal-infrared (TIR) and RGB video into independently validated wildlife detectors.
 
-**[Open the reproducibility notebook in Google Colab](https://colab.research.google.com/github/bodhi584/multimodal-uav-wildlife-detection-yolov8/blob/main/notebooks/training_reproducibility.ipynb)** · [Review the engineering notes](docs/technical_notes.md)
+## Explore the complete project
+
+<a href="https://bodhi584.github.io/multimodal-uav-wildlife-detection-yolov8/" target="_blank" rel="noopener noreferrer"><strong>Open the full multimedia HTML report in a new tab →</strong></a>
+
+The self-contained offline report is the richest visual walkthrough of the project, combining the complete annotation and modeling story with RGB/Thermal comparisons, evaluation figures, and embedded inference videos.
+
+**[Open the reproducibility notebook in Google Colab](https://colab.research.google.com/github/bodhi584/multimodal-uav-wildlife-detection-yolov8/blob/main/notebooks/training_reproducibility.ipynb)** · [Review the engineering notes](docs/technical_notes.md) · [View the report source](docs/index.html)
 
 <p align="center">
   <img src="assets/thermal_prediction.jpg" alt="Thermal validation predictions on aerial wildlife imagery" width="48%" />
@@ -87,7 +93,7 @@ The next rigorous step is one-to-one OOD box matching, followed by canopy-rich t
 
 ```text
 assets/      Selected final-run predictions and F1 curves
-docs/        Experiment interpretation and interview-ready technical notes
+docs/        Complete multimedia HTML report and technical notes
 notebooks/   Colab-ready training workflow
 src/         Training, dataset validation, and metric utilities
 tests/       Lightweight tests for public metric logic
