@@ -2,11 +2,15 @@
 
 An end-to-end computer-vision pipeline that turns synchronized UAV thermal-infrared (TIR) and RGB video into independently validated wildlife detectors.
 
-## Explore the complete project
+## Start here — the complete multimedia report
 
-**[Open the full multimedia HTML report →](https://bodhi584.github.io/multimodal-uav-wildlife-detection-yolov8/)**
+### **[Open the complete multimedia report →](https://bodhi584.github.io/multimodal-uav-wildlife-detection-yolov8/)**
 
-The self-contained offline report is the richest visual walkthrough of the project, combining the complete annotation and modeling story with RGB/Thermal comparisons, evaluation figures, and embedded inference videos.
+This is the primary project experience and the recommended first review. It presents the complete data-engineering, annotation, modeling, and evaluation story through RGB/Thermal comparisons, experiment evidence, and embedded inference videos.
+
+> **Recommended path:** Explore the report first. If you want to reproduce or extend the work, open the notebook and run the code.
+
+Then reproduce the workflow:
 
 **[Open the reproducibility notebook in Google Colab](https://colab.research.google.com/github/bodhi584/multimodal-uav-wildlife-detection-yolov8/blob/main/notebooks/training_reproducibility.ipynb)** · [Review the engineering notes](docs/technical_notes.md) · [View the report source](docs/index.html)
 
