@@ -4,7 +4,7 @@ An end-to-end computer-vision pipeline that turns synchronized UAV thermal-infra
 
 ## Explore the complete project
 
-<a href="https://bodhi584.github.io/multimodal-uav-wildlife-detection-yolov8/" target="_blank" rel="noopener noreferrer"><strong>Open the full multimedia HTML report in a new tab →</strong></a>
+**[Open the full multimedia HTML report →](https://bodhi584.github.io/multimodal-uav-wildlife-detection-yolov8/)**
 
 The self-contained offline report is the richest visual walkthrough of the project, combining the complete annotation and modeling story with RGB/Thermal comparisons, evaluation figures, and embedded inference videos.
 
