@@ -8,11 +8,11 @@ An end-to-end computer-vision pipeline that turns synchronized UAV thermal-infra
 
 This is the primary project experience and the recommended first review. It presents the complete data-engineering, annotation, modeling, and evaluation story through RGB/Thermal comparisons, experiment evidence, and embedded inference videos.
 
-> **Recommended path:** Explore the report and saved experiment evidence first. To reuse the training workflow, open the notebook and supply your own YOLO-format data. The original training dataset is not distributed with this repository.
+> **Recommended path:** Explore the report and saved experiment evidence first. To reuse the training workflow, open the notebook and load the linked Drive datasets or supply your own YOLO-format data. The datasets are hosted in Drive, not bundled in Git.
 
 Explore the training configuration:
 
-**[Open the training notebook in Google Colab (bring your own data)](https://colab.research.google.com/github/bodhi584/multimodal-uav-wildlife-detection-yolov8/blob/main/notebooks/training_reproducibility.ipynb)** · [Review the engineering notes](docs/technical_notes.md) · [View the report source](docs/index.html)
+**[Open the training notebook in Google Colab (Drive data loader)](https://colab.research.google.com/github/bodhi584/multimodal-uav-wildlife-detection-yolov8/blob/main/notebooks/training_reproducibility.ipynb)** · [Review the engineering notes](docs/technical_notes.md) · [View the report source](docs/index.html)
 
 <p align="center">
   <img src="assets/thermal_prediction.jpg" alt="Thermal validation predictions on aerial wildlife imagery" width="48%" />
@@ -103,13 +103,15 @@ src/         Training, dataset validation, and metric utilities
 tests/       Lightweight tests for public metric logic
 ```
 
-## Use the workflow with your own data
+## Load Drive datasets in Colab
 
-The [Colab training notebook](https://colab.research.google.com/github/bodhi584/multimodal-uav-wildlife-detection-yolov8/blob/main/notebooks/training_reproducibility.ipynb) documents the final training settings. It requires your own prepared YOLO-format dataset and does not automatically download the original data.
+The [Colab training notebook](https://colab.research.google.com/github/bodhi584/multimodal-uav-wildlife-detection-yolov8/blob/main/notebooks/training_reproducibility.ipynb) loads the project's prepared Thermal and RGB ZIPs from public Google Drive links. Each visitor runs it in their own Colab account and runtime. Run cells in order to download/extract data, fix old data.yaml paths, skip old caches, and inspect image/label integrity.
 
-1. Prepare data that you are authorized to use, with separate training and validation splits. The example class order is Human, Vehicle, Deer, Hare, Dog, Duck; adapt the YAML and notebook class names if your classes differ.
-2. In Colab, select a GPU runtime, then upload/extract your dataset or mount Google Drive and configure the dataset paths.
-3. Check that each `data.yaml` points to the actual image directories before starting training.
+The ZIPs contain multiple historical datasets. DATASET_SUBDIRS defaults to datasets/YOLO_Thermal (199 training / 50 validation images) and datasets/YOLO_RGB (216 / 55), which have no overlapping train/validation filenames in the checked archives. Larger archived versions have overlapping filenames and are rejected by the notebook check. This selection reproduces the training workflow, but does not reproduce the historical report metrics. Each version's class order is preserved.
+
+If download fails because of quota, set DATA_SOURCE = 'mount', add shortcuts to the two ZIPs inside a folder in your own My Drive, and set DRIVE_DATA_DIR. Mounting grants access to your own Drive; it does not inherit the author's account. Set SAVE_RESULTS_TO_DRIVE = True and rerun the loading cell to persist checkpoints in your own Drive.
+
+Training is skipped by default. Select a GPU runtime, set RUN_TRAINING = True in the configuration cell and rerun it, then run the training cell. For another dataset, change file IDs and DATASET_SUBDIRS (None selects a unique version or lists ambiguous choices). The RGB source imagery includes overlaid recording times and locations.
 
 For the default two-stream example, use this layout:
 
