@@ -8,11 +8,11 @@ An end-to-end computer-vision pipeline that turns synchronized UAV thermal-infra
 
 This is the primary project experience and the recommended first review. It presents the complete data-engineering, annotation, modeling, and evaluation story through RGB/Thermal comparisons, experiment evidence, and embedded inference videos.
 
-> **Recommended path:** Explore the report first. If you want to reproduce or extend the work, open the notebook and run the code.
+> **Recommended path:** Explore the report and saved experiment evidence first. To reuse the training workflow, open the notebook and supply your own YOLO-format data. The original training dataset is not distributed with this repository.
 
-Then reproduce the workflow:
+Explore the training configuration:
 
-**[Open the reproducibility notebook in Google Colab](https://colab.research.google.com/github/bodhi584/multimodal-uav-wildlife-detection-yolov8/blob/main/notebooks/training_reproducibility.ipynb)** · [Review the engineering notes](docs/technical_notes.md) · [View the report source](docs/index.html)
+**[Open the training notebook in Google Colab (bring your own data)](https://colab.research.google.com/github/bodhi584/multimodal-uav-wildlife-detection-yolov8/blob/main/notebooks/training_reproducibility.ipynb)** · [Review the engineering notes](docs/technical_notes.md) · [View the report source](docs/index.html)
 
 <p align="center">
   <img src="assets/thermal_prediction.jpg" alt="Thermal validation predictions on aerial wildlife imagery" width="48%" />
@@ -89,7 +89,7 @@ The full resolution and optimizer comparisons are documented in [technical notes
 - The in-distribution numbers are validation metrics; the limited custom dataset did not support a separate hold-out test set.
 - The 97.03% OOD count ratio does not identify false positives or false negatives at object level.
 - Transfer was strong on unseen open winter grassland but weaker in dense summer canopy, where branches fragmented thermal signatures.
-- The public repository excludes trained weights and the prepared dataset, so full metric reproduction requires access to the source data.
+- The original training and validation data are not distributed here. Recomputing the reported metrics requires the corresponding annotations, evaluation split, trained weights, and evaluation settings; training on your own data will produce different results.
 
 The next rigorous step is one-to-one OOD box matching, followed by canopy-rich training data and uncertainty-aware temporal or cross-modal fusion.
 
@@ -103,9 +103,15 @@ src/         Training, dataset validation, and metric utilities
 tests/       Lightweight tests for public metric logic
 ```
 
-## Quick start
+## Use the workflow with your own data
 
-The recommended path is the [Colab notebook](https://colab.research.google.com/github/bodhi584/multimodal-uav-wildlife-detection-yolov8/blob/main/notebooks/training_reproducibility.ipynb). Add a YOLO-format dataset with this layout:
+The [Colab training notebook](https://colab.research.google.com/github/bodhi584/multimodal-uav-wildlife-detection-yolov8/blob/main/notebooks/training_reproducibility.ipynb) documents the final training settings. It requires your own prepared YOLO-format dataset and does not automatically download the original data.
+
+1. Prepare data that you are authorized to use, with separate training and validation splits. The example class order is Human, Vehicle, Deer, Hare, Dog, Duck; adapt the YAML and notebook class names if your classes differ.
+2. In Colab, select a GPU runtime, then upload/extract your dataset or mount Google Drive and configure the dataset paths.
+3. Check that each `data.yaml` points to the actual image directories before starting training.
+
+For the default two-stream example, use this layout:
 
 ```text
 datasets/
@@ -126,7 +132,19 @@ python src/train.py --data datasets/YOLO_RGB/data.yaml --modality rgb
 python -m unittest discover -s tests -v
 ```
 
-The training defaults reproduce the reported final configurations: 100 epochs, batch size 16, SGD, patience 20, Thermal at 640 px, and RGB at 1280 px.
+The training defaults match the reported final configurations: 100 epochs, batch size 16, SGD, patience 20, Thermal at 640 px, and RGB at 1280 px.
+
+### Use trained weights for inference
+
+The repository currently contains prediction examples, F1 curves, and reported metrics; downloadable project-trained weights are not yet included. These saved outputs let readers inspect the experiment evidence. Running the trained detectors requires the actual model weights.
+
+Once you have a project-trained checkpoint, run it on images or video that you are authorized to use:
+
+```bash
+yolo predict model=/path/to/thermal_best.pt source=/path/to/your/images imgsz=640 conf=0.563
+```
+
+Replace the placeholder paths with your checkpoint and input. Use `imgsz=1280 conf=0.350` for the reported RGB operating configuration. Inference on new inputs demonstrates the model’s behavior; recomputing the reported mAP requires the original evaluation split and labels.
 
 ## Skills demonstrated
 
@@ -136,4 +154,4 @@ Computer vision · multimodal data engineering · object detection · experiment
 
 The source imagery is from Praschl et al., **BAMBI Dataset: Multimodal Nadir UAV-Recordings of Forest Wildlife**, DOI [10.5281/zenodo.18692354](https://doi.org/10.5281/zenodo.18692354), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The displayed prediction examples are derived from that dataset and retain the same attribution requirement.
 
-The repository does not redistribute source videos, prepared datasets, or trained weights. Original code in this repository is released under the [MIT License](LICENSE). Ultralytics software and models remain subject to their own licensing terms.
+The source imagery belongs to its original rights holders. This repository does not redistribute the source videos or the prepared training/validation dataset; obtain any source data independently under its applicable terms. Project-trained weights are not currently distributed here. Original code in this repository is released under the [MIT License](LICENSE). Ultralytics software and models remain subject to their own licensing terms.
