@@ -1,5 +1,7 @@
 # Multimodal UAV Wildlife Detection with YOLOv8
 
+**Authors:** Yu Han · Melisa Subasi · Meron Hagos · Alejandro Rivas
+
 An end-to-end computer-vision pipeline that turns synchronized UAV thermal-infrared (TIR) and RGB video into independently validated wildlife detectors.
 
 ## Start here — the complete multimedia report
@@ -46,7 +48,7 @@ python src/metrics.py --detections 555 --annotations 572
 
 The F1-confidence evidence is available for the [Thermal model](assets/thermal_f1_curve.png) and [RGB model](assets/rgb_f1_curve.png).
 
-## What I built
+## What we built
 
 - Designed a Thermal-first dual-stream annotation methodology with modality-specific boxes and RGB semantic verification.
 - Synchronized UAV videos by timestamp with FFmpeg while preserving each sensor's native geometry.
